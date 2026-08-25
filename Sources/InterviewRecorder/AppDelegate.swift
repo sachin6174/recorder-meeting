@@ -4,10 +4,8 @@ import ServiceManagement
 final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private let engine = RecordingEngine()
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-    private let indicator = RecordingIndicatorController()
     private let permissionsWindow = PermissionsWindowController()
     private var hotKey: GlobalHotKey?
-    private var timer: Timer?
     private var startedAt: Date?
     private var lastSavedURL: URL?
     private var currentState: RecordingEngine.State = .idle
@@ -84,8 +82,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         currentState = state
         switch state {
         case .idle:
-            stopTimer()
-            indicator.hide()
+            startedAt = nil
             setStatusIcon(recording: false)
             NSSound.beep()
             if let lastSavedURL {
@@ -98,15 +95,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         case let .recording(url):
             lastSavedURL = url
             startedAt = Date()
-            indicator.update(seconds: 0)
-            indicator.show()
             setStatusIcon(recording: true)
-            startTimer()
         case .stopping:
             statusItem.button?.toolTip = "Finalizing recording…"
         case let .failed(message):
-            stopTimer()
-            indicator.hide()
+            startedAt = nil
             setStatusIcon(recording: false)
             lastSavedURL = nil
             showError(message)
@@ -182,20 +175,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         statusItem.button?.image = NSImage(systemSymbolName: symbol, accessibilityDescription: recording ? "Recording in progress" : "Interview Recorder")
         statusItem.button?.contentTintColor = recording ? .systemRed : nil
         statusItem.button?.toolTip = recording ? "Recording — ⌥⌘R to stop" : "Interview Recorder — ⌥⌘R to start"
-    }
-
-    private func startTimer() {
-        stopTimer()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            guard let self, let startedAt = self.startedAt else { return }
-            self.indicator.update(seconds: Date().timeIntervalSince(startedAt))
-        }
-    }
-
-    private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
-        startedAt = nil
     }
 
     @objc private func showPermissions() {

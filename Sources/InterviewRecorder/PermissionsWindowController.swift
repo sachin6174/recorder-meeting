@@ -57,7 +57,7 @@ final class PermissionsWindowController: NSWindowController {
         )
 
         let note = NSTextField(wrappingLabelWithString:
-            "Recording is allowed only after every participant has explicitly agreed. The app displays a persistent recording indicator and plays a start/stop sound."
+            "Recording is allowed only after every participant has explicitly agreed. The app displays recording status in the menu bar and plays a start/stop sound."
         )
         note.textColor = .secondaryLabelColor
         note.font = .systemFont(ofSize: 12)
