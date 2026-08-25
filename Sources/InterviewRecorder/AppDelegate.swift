@@ -13,7 +13,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
 
-        statusItem.button?.image = NSImage(systemSymbolName: "record.circle", accessibilityDescription: "Interview Recorder")
+        statusItem.button?.image = NSImage(systemSymbolName: "cloud", accessibilityDescription: "Interview Recorder")
         statusItem.button?.image?.isTemplate = true
         statusItem.menu = NSMenu()
         statusItem.menu?.delegate = self
@@ -171,8 +171,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     }
 
     private func setStatusIcon(recording: Bool) {
-        let symbol = recording ? "record.circle.fill" : "record.circle"
-        statusItem.button?.image = NSImage(systemSymbolName: symbol, accessibilityDescription: recording ? "Recording in progress" : "Interview Recorder")
+        let symbol = recording ? "cloud.bolt.fill" : "cloud"
+        let image = NSImage(systemSymbolName: symbol, accessibilityDescription: recording ? "Recording in progress" : "Interview Recorder")
+        image?.isTemplate = true
+        statusItem.button?.image = image
         statusItem.button?.contentTintColor = recording ? .systemRed : nil
         statusItem.button?.toolTip = recording ? "Recording — ⌥⌘R to stop" : "Interview Recorder — ⌥⌘R to start"
     }

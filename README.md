@@ -26,6 +26,25 @@ Recordings are saved in `~/Movies/Interview Recordings`.
 open "dist/Interview Recorder.app"
 ```
 
+## Test, build, and replace the installed application
+
+Run one command from the project folder:
+
+```sh
+./scripts/install_app.sh
+```
+
+The installation script:
+
+1. Runs all automated tests.
+2. Creates and signs the Release application using the stable Apple signing identity.
+3. Verifies the built signature.
+4. Refuses to continue if an MP4 recording is currently active.
+5. Stops an idle installed copy safely.
+6. Copies the new build to `/Applications/Interview Recorder.app`.
+7. Verifies the installed signature.
+8. Relaunches the app and confirms that its process remains running.
+
 If permission is genuinely missing when you try to start, the app opens its permission guide. macOS requires the user to personally approve:
 
 1. **Screen & System Audio Recording**
