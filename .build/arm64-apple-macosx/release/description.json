@@ -56,10 +56,6 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingIndicatorController.swift"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/main.swift"
         },
         {
@@ -82,7 +78,6 @@
         "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionsWindowController.swift.o",
         "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingEngine.swift.o",
         "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingHelpers.swift.o",
-        "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingIndicatorController.swift.o",
         "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/main.swift.o"
       ],
       "otherArguments" : [
@@ -163,10 +158,6 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingIndicatorController.swift.o"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/main.swift.o"
         },
         {
@@ -183,7 +174,6 @@
         "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/PermissionsWindowController.swift",
         "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingEngine.swift",
         "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingHelpers.swift",
-        "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingIndicatorController.swift",
         "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/main.swift"
       ],
       "tempsPath" : "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build",
@@ -395,7 +385,6 @@
       "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/PermissionsWindowController.swift",
       "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingEngine.swift",
       "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingHelpers.swift",
-      "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingIndicatorController.swift",
       "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/main.swift",
       "-I",
       "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/Modules",
@@ -635,10 +624,6 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingIndicatorController.swift"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/main.swift"
         }
       ],
@@ -678,10 +663,6 @@
         {
           "kind" : "file",
           "name" : "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingHelpers.swift.o"
-        },
-        {
-          "kind" : "file",
-          "name" : "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingIndicatorController.swift.o"
         },
         {
           "kind" : "file",
@@ -738,10 +719,6 @@
         {
           "kind" : "file",
           "name" : "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingHelpers.swift.o"
-        },
-        {
-          "kind" : "file",
-          "name" : "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingIndicatorController.swift.o"
         },
         {
           "kind" : "file",
