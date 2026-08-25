@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/debug/InterviewRecorderTests.build/primary.swiftdeps"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Tests/InterviewRecorderTests/RecordingHelpersTests.swift": {
+    "dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/debug/InterviewRecorderTests.build/RecordingHelpersTests.d",
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/debug/InterviewRecorderTests.build/RecordingHelpersTests.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/debug/InterviewRecorderTests.build/RecordingHelpersTests~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/debug/InterviewRecorderTests.build/RecordingHelpersTests.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/debug/InterviewRecorderTests.build/RecordingHelpersTests.dia"
+  }
+}

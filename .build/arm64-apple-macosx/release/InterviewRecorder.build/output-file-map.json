@@ -1,0 +1,61 @@
+{
+  "": {
+    "dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/InterviewRecorder.d",
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/InterviewRecorder.o",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/primary.swiftdeps"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/AppDelegate.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/AppDelegate.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/AppDelegate~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/AppDelegate.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/AppDelegate.dia"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/DiagnosticLog.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/DiagnosticLog.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/DiagnosticLog~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/DiagnosticLog.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/DiagnosticLog.dia"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/GlobalHotKey.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/GlobalHotKey.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/GlobalHotKey~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/GlobalHotKey.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/GlobalHotKey.dia"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/PermissionManager.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionManager.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionManager.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionManager.dia"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/PermissionsWindowController.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionsWindowController.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionsWindowController~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionsWindowController.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/PermissionsWindowController.dia"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingEngine.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingEngine.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingEngine~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingEngine.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingEngine.dia"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingHelpers.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingHelpers.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingHelpers~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingHelpers.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingHelpers.dia"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/RecordingIndicatorController.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingIndicatorController.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingIndicatorController~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingIndicatorController.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/RecordingIndicatorController.dia"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/Sources/InterviewRecorder/main.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/main.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/main.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorder.build/main.dia"
+  }
+}

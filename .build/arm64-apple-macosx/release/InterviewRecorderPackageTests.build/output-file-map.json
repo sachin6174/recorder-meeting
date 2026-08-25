@@ -1,0 +1,13 @@
+{
+  "": {
+    "dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorderPackageTests.build/InterviewRecorderPackageTests.d",
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorderPackageTests.build/InterviewRecorderPackageTests.o",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorderPackageTests.build/primary.swiftdeps"
+  },
+  "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorderPackageTests.derived/runner.swift": {
+    "object": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorderPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorderPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorderPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/release/InterviewRecorderPackageTests.build/runner.dia"
+  }
+}
