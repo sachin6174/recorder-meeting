@@ -1,0 +1,54 @@
+# Swift Package Manager & Build Artifacts
+.build/
+.swiftpm/
+dist/
+build/
+DerivedData/
+Packages/
+Package.pins
+
+# Xcode & User Specific Files
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+*.xcbkptlist
+*.xccheckout
+*.moved-aside
+*.xcscmblueprint
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# IDEs & Text Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs & Diagnostics
+*.log
+*.crash

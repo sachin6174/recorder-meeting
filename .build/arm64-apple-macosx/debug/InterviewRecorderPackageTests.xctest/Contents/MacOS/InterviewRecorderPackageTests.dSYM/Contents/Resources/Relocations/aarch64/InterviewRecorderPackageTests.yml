@@ -1,5 +1,0 @@
----
-triple:          'arm64-apple-darwin'
-binary-path:     '/Users/sachinkumar/Desktop/recorder-meeting/.build/arm64-apple-macosx/debug/InterviewRecorderPackageTests.xctest/Contents/MacOS/InterviewRecorderPackageTests'
-relocations:     []
-...
