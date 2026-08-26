@@ -34,13 +34,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         if currentState.isBusy {
-            let alert = NSAlert()
-            alert.alertStyle = .warning
-            alert.messageText = "Stop recording before quitting"
-            alert.informativeText = "Use ⌥⌘R or choose Stop Recording so the video file can be finalized safely."
-            alert.addButton(withTitle: "OK")
-            alert.runModal()
-            return .terminateCancel
+            Task {
+                await self.engine.stop()
+                NSApp.reply(toApplicationShouldTerminate: true)
+            }
+            return .terminateLater
         }
         return .terminateNow
     }
@@ -88,7 +86,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         case let .failed(message):
             startedAt = nil
             setStatusIcon(recording: false)
-            showError(message)
+            DiagnosticLog.write("Recording error: \(message)")
         }
     }
 
@@ -134,14 +132,5 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func quit() {
         NSApp.terminate(nil)
-    }
-
-    private func showError(_ message: String) {
-        let alert = NSAlert()
-        alert.alertStyle = .critical
-        alert.messageText = "Interview Recorder"
-        alert.informativeText = message
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
     }
 }

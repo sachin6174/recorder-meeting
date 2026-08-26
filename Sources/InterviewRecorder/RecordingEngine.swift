@@ -197,7 +197,7 @@ final class RecordingEngine: NSObject, SCStreamDelegate, SCStreamOutput, @unchec
     }
 
     func stream(_ stream: SCStream, didStopWithError error: Error) {
-        guard state.isBusy else { return }
+        guard case .recording = state else { return }
         DiagnosticLog.write("Capture stream stopped with error: \(error.localizedDescription)")
         cleanup(removeIncompleteFile: true)
         state = .failed("Screen capture stopped: \(error.localizedDescription)")
