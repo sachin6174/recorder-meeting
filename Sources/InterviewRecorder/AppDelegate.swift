@@ -95,11 +95,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private func rebuildMenu(_ menu: NSMenu) {
         menu.removeAllItems()
 
-        WeatherService.shared.fetchWeather()
-        let weatherItem = NSMenuItem(title: WeatherService.shared.currentWeather, action: nil, keyEquivalent: "")
-        weatherItem.isEnabled = false
-        menu.addItem(weatherItem)
-
         let isRecording: Bool
         if case .recording = currentState {
             isRecording = true
@@ -107,31 +102,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             isRecording = false
         }
 
-        let startItem = NSMenuItem(title: "Start", action: #selector(startAction), keyEquivalent: "")
-        startItem.target = self
-        startItem.isEnabled = !currentState.isBusy
-        menu.addItem(startItem)
+        WeatherService.shared.fetchWeather()
+        let weatherText = WeatherService.shared.weather(forRecording: isRecording)
+        let weatherItem = NSMenuItem(title: weatherText, action: nil, keyEquivalent: "")
+        weatherItem.isEnabled = false
+        menu.addItem(weatherItem)
 
-        let stopItem = NSMenuItem(title: "Stop", action: #selector(stopAction), keyEquivalent: "")
-        stopItem.target = self
-        stopItem.isEnabled = isRecording
-        menu.addItem(stopItem)
+        let toggleItem = NSMenuItem(title: "Toggle", action: #selector(toggleRecording), keyEquivalent: "")
+        toggleItem.target = self
+        switch currentState {
+        case .starting, .stopping:
+            toggleItem.isEnabled = false
+        case .idle, .recording, .failed:
+            toggleItem.isEnabled = true
+        }
+        menu.addItem(toggleItem)
 
         let quitItem = NSMenuItem(title: "Quit", action: #selector(quit), keyEquivalent: "q")
         quitItem.target = self
         menu.addItem(quitItem)
-    }
-
-    @objc private func startAction() {
-        if !currentState.isBusy {
-            startRecording()
-        }
-    }
-
-    @objc private func stopAction() {
-        if case .recording = currentState {
-            Task { await engine.stop() }
-        }
     }
 
     private func setStatusIcon(recording: Bool) {
