@@ -7,7 +7,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private let permissionsWindow = PermissionsWindowController()
     private var hotKey: GlobalHotKey?
     private var startedAt: Date?
-    private var lastSavedURL: URL?
     private var currentState: RecordingEngine.State = .idle
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -76,15 +75,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             startedAt = nil
             setStatusIcon(recording: false)
             NSSound.beep()
-            if let lastSavedURL {
-                showSavedAlert(url: lastSavedURL)
-                self.lastSavedURL = nil
-            }
         case .starting:
             setStatusIcon(recording: false)
             statusItem.button?.toolTip = "Starting recording…"
-        case let .recording(url):
-            lastSavedURL = url
+        case .recording:
             startedAt = Date()
             setStatusIcon(recording: true)
         case .stopping:
@@ -92,7 +86,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         case let .failed(message):
             startedAt = nil
             setStatusIcon(recording: false)
-            lastSavedURL = nil
             showError(message)
         }
     }
@@ -204,17 +197,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func quit() {
         NSApp.terminate(nil)
-    }
-
-    private func showSavedAlert(url: URL) {
-        let alert = NSAlert()
-        alert.messageText = "Recording saved"
-        alert.informativeText = url.path
-        alert.addButton(withTitle: "Show in Finder")
-        alert.addButton(withTitle: "OK")
-        if alert.runModal() == .alertFirstButtonReturn {
-            NSWorkspace.shared.activateFileViewerSelecting([url])
-        }
     }
 
     private func showError(_ message: String) {
