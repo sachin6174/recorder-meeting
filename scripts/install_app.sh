@@ -49,7 +49,10 @@ if test -n "$CURRENT_PID"; then
     done
 fi
 
-echo "Installing in /Applications..."
+echo "Deleting older build from /Applications..."
+/bin/rm -rf "$INSTALLED_APP"
+
+echo "Installing new build in /Applications..."
 /usr/bin/ditto "$BUILT_APP" "$INSTALLED_APP"
 
 echo "Verifying the installed application..."
