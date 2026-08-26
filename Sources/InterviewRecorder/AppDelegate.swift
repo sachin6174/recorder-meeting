@@ -24,6 +24,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         hotKey = GlobalHotKey { [weak self] in self?.toggleRecording() }
         hotKey?.register()
 
+        WeatherService.shared.fetchWeather(force: true)
+
         DiagnosticLog.write(
             "Installed-app authorization: screen=\(PermissionManager.hasScreenRecording ? "granted" : "missing") " +
             "microphone=\(PermissionManager.hasMicrophone ? "granted" : "missing")"
@@ -93,7 +95,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private func rebuildMenu(_ menu: NSMenu) {
         menu.removeAllItems()
 
-        let weatherItem = NSMenuItem(title: "Weather Data", action: nil, keyEquivalent: "")
+        WeatherService.shared.fetchWeather()
+        let weatherItem = NSMenuItem(title: WeatherService.shared.currentWeather, action: nil, keyEquivalent: "")
         weatherItem.isEnabled = false
         menu.addItem(weatherItem)
 
