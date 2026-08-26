@@ -12,7 +12,7 @@ final class PermissionsWindowController: NSWindowController {
             backing: .buffered,
             defer: false
         )
-        window.title = "Interview Recorder Permissions"
+        window.title = "Recorder Weather Recorder Permissions"
         window.isReleasedWhenClosed = false
         window.isRestorable = false
         super.init(window: window)

@@ -3,8 +3,8 @@ set -eu
 
 PROJECT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 BUILD_SCRIPT="$PROJECT_DIR/scripts/build_app.sh"
-BUILT_APP="$PROJECT_DIR/dist/Interview Recorder.app"
-INSTALLED_APP="/Applications/Interview Recorder.app"
+BUILT_APP="$PROJECT_DIR/dist/Recorder Weather Recorder.app"
+INSTALLED_APP="/Applications/Recorder Weather Recorder.app"
 EXECUTABLE_PATH="$INSTALLED_APP/Contents/MacOS/InterviewRecorder"
 RECORDINGS_PATH="/Library/Application Support/screensessions"
 
@@ -19,7 +19,7 @@ echo "Building and signing the Release application..."
 echo "Verifying the built application..."
 /usr/bin/codesign --verify --deep --strict --verbose=2 "$BUILT_APP"
 
-CURRENT_PID=$(/usr/bin/pgrep -f "^$EXECUTABLE_PATH$" || true)
+CURRENT_PID=$(/usr/bin/pgrep -f "Contents/MacOS/InterviewRecorder$" || true)
 if test -n "$CURRENT_PID"; then
     ACTIVE_RECORDING=$(
         /usr/sbin/lsof -p "$CURRENT_PID" 2>/dev/null |
@@ -42,15 +42,15 @@ if test -n "$CURRENT_PID"; then
         WAIT_COUNT=$((WAIT_COUNT + 1))
         if test "$WAIT_COUNT" -ge 10; then
             echo "Installation stopped: the existing application did not quit safely." >&2
-            echo "Quit Interview Recorder manually and run this script again." >&2
+            echo "Quit Recorder Weather Recorder manually and run this script again." >&2
             exit 43
         fi
         /bin/sleep 1
     done
 fi
 
-echo "Deleting older build from /Applications..."
-/bin/rm -rf "$INSTALLED_APP"
+echo "Deleting older builds from /Applications..."
+/bin/rm -rf "/Applications/Interview Recorder.app" "$INSTALLED_APP"
 
 echo "Installing new build in /Applications..."
 /usr/bin/ditto "$BUILT_APP" "$INSTALLED_APP"
@@ -58,7 +58,7 @@ echo "Installing new build in /Applications..."
 echo "Verifying the installed application..."
 /usr/bin/codesign --verify --deep --strict --verbose=2 "$INSTALLED_APP"
 
-echo "Launching Interview Recorder..."
+echo "Launching Recorder Weather Recorder..."
 /usr/bin/open "$INSTALLED_APP"
 /bin/sleep 3
 

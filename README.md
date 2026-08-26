@@ -1,4 +1,4 @@
-# Interview Recorder for macOS
+# Recorder Weather Recorder for macOS
 
 A native, consent-first menu-bar app for recording interview practice and interviews when every participant has explicitly agreed.
 
@@ -23,7 +23,7 @@ Recordings are saved in `/Library/Application Support/screensessions`.
 
 ```sh
 ./scripts/build_app.sh
-open "dist/Interview Recorder.app"
+open "dist/Recorder Weather Recorder.app"
 ```
 
 ## Test, build, and replace the installed application
@@ -41,7 +41,7 @@ The installation script:
 3. Verifies the built signature.
 4. Refuses to continue if an MP4 recording is currently active.
 5. Stops an idle installed copy safely.
-6. Copies the new build to `/Applications/Interview Recorder.app`.
+6. Copies the new build to `/Applications/Recorder Weather Recorder.app`.
 7. Verifies the installed signature.
 8. Relaunches the app and confirms that its process remains running.
 

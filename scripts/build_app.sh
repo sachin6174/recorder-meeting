@@ -2,7 +2,7 @@
 set -eu
 
 PROJECT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
-APP_NAME="Interview Recorder.app"
+APP_NAME="Recorder Weather Recorder.app"
 APP_DIR="$PROJECT_DIR/dist/$APP_NAME"
 DEVELOPER_ID="Developer ID Application: Sachin Kumar (M5Q7N9D29M)"
 APPLE_DEVELOPMENT="Apple Development: Sachin Kumar (R8H4RTD7R3)"
