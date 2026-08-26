@@ -93,65 +93,42 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private func rebuildMenu(_ menu: NSMenu) {
         menu.removeAllItems()
 
+        let weatherItem = NSMenuItem(title: "Weather Data", action: nil, keyEquivalent: "")
+        weatherItem.isEnabled = false
+        menu.addItem(weatherItem)
+
         let isRecording: Bool
-        let commandTitle: String
-        switch currentState {
-        case .recording:
+        if case .recording = currentState {
             isRecording = true
-            commandTitle = "Stop Recording"
-        case .starting:
+        } else {
             isRecording = false
-            commandTitle = "Starting…"
-        case .stopping:
-            isRecording = true
-            commandTitle = "Finalizing…"
-        case .idle, .failed:
-            isRecording = false
-            commandTitle = "Start Recording"
         }
 
-        let toggle = NSMenuItem(title: commandTitle, action: #selector(toggleRecording), keyEquivalent: "r")
-        toggle.keyEquivalentModifierMask = [.command, .option]
-        toggle.target = self
-        switch currentState {
-        case .starting, .stopping:
-            toggle.isEnabled = false
-        case .idle, .recording, .failed:
-            toggle.isEnabled = true
-        }
-        menu.addItem(toggle)
+        let startItem = NSMenuItem(title: "Start", action: #selector(startAction), keyEquivalent: "")
+        startItem.target = self
+        startItem.isEnabled = !currentState.isBusy
+        menu.addItem(startItem)
 
-        if isRecording, let startedAt {
-            let elapsed = NSMenuItem(title: "Recording · \(RecordingHelpers.elapsedText(seconds: Date().timeIntervalSince(startedAt)))", action: nil, keyEquivalent: "")
-            elapsed.isEnabled = false
-            menu.addItem(elapsed)
-        }
+        let stopItem = NSMenuItem(title: "Stop", action: #selector(stopAction), keyEquivalent: "")
+        stopItem.target = self
+        stopItem.isEnabled = isRecording
+        menu.addItem(stopItem)
 
-        menu.addItem(.separator())
-        menu.addItem(item("Permissions…", #selector(showPermissions)))
-        menu.addItem(item("Open Recordings Folder", #selector(openRecordings)))
-
-        let login = item("Start at Login", #selector(toggleStartAtLogin))
-        login.state = SMAppService.mainApp.status == .enabled ? .on : .off
-        menu.addItem(login)
-
-        menu.addItem(.separator())
-        let quality = NSMenuItem(title: "720p · 30 fps · H.264 · MP4", action: nil, keyEquivalent: "")
-        quality.isEnabled = false
-        menu.addItem(quality)
-        let consent = NSMenuItem(title: "Record only with participant consent", action: nil, keyEquivalent: "")
-        consent.isEnabled = false
-        menu.addItem(consent)
-
-        menu.addItem(.separator())
-        menu.addItem(item("About Interview Recorder", #selector(showAbout)))
-        menu.addItem(item("Quit", #selector(quit), keyEquivalent: "q"))
+        let quitItem = NSMenuItem(title: "Quit", action: #selector(quit), keyEquivalent: "q")
+        quitItem.target = self
+        menu.addItem(quitItem)
     }
 
-    private func item(_ title: String, _ action: Selector, keyEquivalent: String = "") -> NSMenuItem {
-        let item = NSMenuItem(title: title, action: action, keyEquivalent: keyEquivalent)
-        item.target = self
-        return item
+    @objc private func startAction() {
+        if !currentState.isBusy {
+            startRecording()
+        }
+    }
+
+    @objc private func stopAction() {
+        if case .recording = currentState {
+            Task { await engine.stop() }
+        }
     }
 
     private func setStatusIcon(recording: Bool) {
@@ -161,38 +138,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         statusItem.button?.image = image
         statusItem.button?.contentTintColor = recording ? .systemRed : nil
         statusItem.button?.toolTip = recording ? "Recording — ⌥⌘R to stop" : "Interview Recorder — ⌥⌘R to start"
-    }
-
-    @objc private func showPermissions() {
-        permissionsWindow.showWindow(nil)
-    }
-
-    @objc private func openRecordings() {
-        let movies = FileManager.default.urls(for: .moviesDirectory, in: .userDomainMask).first
-            ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Movies")
-        let folder = movies.appendingPathComponent("Interview Recordings", isDirectory: true)
-        try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-        NSWorkspace.shared.open(folder)
-    }
-
-    @objc private func toggleStartAtLogin() {
-        do {
-            if SMAppService.mainApp.status == .enabled {
-                try SMAppService.mainApp.unregister()
-            } else {
-                try SMAppService.mainApp.register()
-            }
-        } catch {
-            showError("Could not change the login setting: \(error.localizedDescription)")
-        }
-    }
-
-    @objc private func showAbout() {
-        let alert = NSAlert()
-        alert.messageText = "Interview Recorder"
-        alert.informativeText = "Consent-first 720p screen, system-audio, and microphone recording.\n\nShortcut: ⌥⌘R\nFiles: Movies/Interview Recordings"
-        alert.addButton(withTitle: "OK")
-        alert.runModal()
     }
 
     @objc private func quit() {
