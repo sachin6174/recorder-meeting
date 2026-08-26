@@ -53,27 +53,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         case .recording:
             Task { await engine.stop() }
         case .idle, .failed:
-            beginConsentFlow()
+            startRecording()
         case .starting, .stopping:
             NSSound.beep()
         }
     }
 
-    private func beginConsentFlow() {
+    private func startRecording() {
         guard PermissionManager.hasScreenRecording, PermissionManager.hasMicrophone else {
             permissionsWindow.showWindow(nil)
             return
         }
 
-        let alert = NSAlert()
-        alert.alertStyle = .informational
-        alert.messageText = "Confirm everyone has agreed"
-        alert.informativeText = "Before recording, tell every interview participant that the screen, meeting audio, and microphone will be recorded, and obtain their explicit agreement. Recording without consent may violate law, company policy, or platform rules."
-        alert.addButton(withTitle: "I Have Consent — Start Recording")
-        alert.addButton(withTitle: "Cancel")
-        NSApp.activate(ignoringOtherApps: true)
-
-        guard alert.runModal() == .alertFirstButtonReturn else { return }
         NSSound.beep()
         Task { await engine.start() }
     }
