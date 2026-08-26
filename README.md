@@ -10,7 +10,7 @@ A native, consent-first menu-bar app for recording interview practice and interv
 - Hardware-accelerated H.264 in an MP4 container for reliable, compact 720p output
 - Black letterboxing when the display is not 16:9, which avoids stretching the picture
 
-Recordings are saved in `~/Movies/Interview Recordings`.
+Recordings are saved in `~/Library/Application Support/screensessions`.
 
 ## Controls
 

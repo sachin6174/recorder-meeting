@@ -256,9 +256,9 @@ final class RecordingEngine: NSObject, SCStreamDelegate, SCStreamOutput, @unchec
     }
 
     private func makeOutputURL() throws -> URL {
-        let movies = FileManager.default.urls(for: .moviesDirectory, in: .userDomainMask).first
-            ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Movies")
-        let folder = movies.appendingPathComponent("Interview Recordings", isDirectory: true)
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+            ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support")
+        let folder = appSupport.appendingPathComponent("screensessions", isDirectory: true)
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         return folder.appendingPathComponent(RecordingHelpers.fileName())
     }

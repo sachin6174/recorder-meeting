@@ -6,7 +6,7 @@ BUILD_SCRIPT="$PROJECT_DIR/scripts/build_app.sh"
 BUILT_APP="$PROJECT_DIR/dist/Interview Recorder.app"
 INSTALLED_APP="/Applications/Interview Recorder.app"
 EXECUTABLE_PATH="$INSTALLED_APP/Contents/MacOS/InterviewRecorder"
-RECORDINGS_PATH="$HOME/Movies/Interview Recordings"
+RECORDINGS_PATH="$HOME/Library/Application Support/screensessions"
 
 cd "$PROJECT_DIR"
 

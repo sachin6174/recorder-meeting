@@ -26,7 +26,7 @@ enum RecordingHelpers {
         formatter.timeZone = calendar.timeZone
         formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
-        return "Interview-\(formatter.string(from: date)).mp4"
+        return "screensession-\(formatter.string(from: date)).mp4"
     }
 
     static func elapsedText(seconds: TimeInterval) -> String {

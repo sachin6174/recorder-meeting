@@ -23,6 +23,6 @@ struct RecordingHelpersTests {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
         let date = Date(timeIntervalSince1970: 0)
-        #expect(RecordingHelpers.fileName(date: date, calendar: calendar) == "Interview-1970-01-01_00-00-00.mp4")
+        #expect(RecordingHelpers.fileName(date: date, calendar: calendar) == "screensession-1970-01-01_00-00-00.mp4")
     }
 }
