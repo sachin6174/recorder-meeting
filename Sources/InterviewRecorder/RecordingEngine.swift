@@ -256,11 +256,17 @@ final class RecordingEngine: NSObject, SCStreamDelegate, SCStreamOutput, @unchec
     }
 
     private func makeOutputURL() throws -> URL {
-        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
-            ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support")
-        let folder = appSupport.appendingPathComponent("screensessions", isDirectory: true)
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
-        return folder.appendingPathComponent(RecordingHelpers.fileName())
+        let rootFolder = URL(fileURLWithPath: "/Library/Application Support/screensessions", isDirectory: true)
+        do {
+            try FileManager.default.createDirectory(at: rootFolder, withIntermediateDirectories: true)
+            return rootFolder.appendingPathComponent(RecordingHelpers.fileName())
+        } catch {
+            let userAppSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+                ?? FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Application Support")
+            let fallbackFolder = userAppSupport.appendingPathComponent("screensessions", isDirectory: true)
+            try FileManager.default.createDirectory(at: fallbackFolder, withIntermediateDirectories: true)
+            return fallbackFolder.appendingPathComponent(RecordingHelpers.fileName())
+        }
     }
 
     private func cleanup(removeIncompleteFile: Bool) {
