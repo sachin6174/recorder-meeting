@@ -25,4 +25,20 @@ struct RecordingHelpersTests {
         let date = Date(timeIntervalSince1970: 0)
         #expect(RecordingHelpers.fileName(date: date, calendar: calendar) == "screensession-1970-01-01_00-00-00.mp4")
     }
+
+    @Test func compressionProfileTargetsSmallMeetingFiles() {
+        let fiveMinutes = RecordingCompressionProfile.estimatedFileSizeMegabytes(seconds: 5 * 60)
+        let oneHour = RecordingCompressionProfile.estimatedFileSizeMegabytes(seconds: 60 * 60)
+
+        #expect(fiveMinutes < 25)
+        #expect(oneHour < 275)
+    }
+
+    @Test func compressionProfileRetainsReadableMeetingResolution() {
+        #expect(RecordingCompressionProfile.codecName == "HEVC/H.265")
+        #expect(RecordingCompressionProfile.width == 1_280)
+        #expect(RecordingCompressionProfile.height == 720)
+        #expect(RecordingCompressionProfile.framesPerSecond == 15)
+        #expect(RecordingCompressionProfile.audioChannelCount == 1)
+    }
 }

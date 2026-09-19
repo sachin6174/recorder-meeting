@@ -2,6 +2,7 @@ import AppKit
 import AVFoundation
 import CoreMedia
 import ScreenCaptureKit
+import VideoToolbox
 
 @available(macOS 15.0, *)
 final class RecordingEngine: NSObject, SCStreamDelegate, SCStreamOutput, @unchecked Sendable {
@@ -58,9 +59,12 @@ final class RecordingEngine: NSObject, SCStreamDelegate, SCStreamOutput, @unchec
             )
 
             let configuration = SCStreamConfiguration()
-            configuration.width = 1_280
-            configuration.height = 720
-            configuration.minimumFrameInterval = CMTime(value: 1, timescale: 30)
+            configuration.width = RecordingCompressionProfile.width
+            configuration.height = RecordingCompressionProfile.height
+            configuration.minimumFrameInterval = CMTime(
+                value: 1,
+                timescale: CMTimeScale(RecordingCompressionProfile.framesPerSecond)
+            )
             configuration.queueDepth = 6
             configuration.showsCursor = true
             configuration.showMouseClicks = true
@@ -73,41 +77,70 @@ final class RecordingEngine: NSObject, SCStreamDelegate, SCStreamOutput, @unchec
 
             configuration.capturesAudio = true
             configuration.excludesCurrentProcessAudio = true
-            configuration.sampleRate = 48_000
-            configuration.channelCount = 2
+            configuration.sampleRate = RecordingCompressionProfile.audioSampleRate
+            configuration.channelCount = RecordingCompressionProfile.audioChannelCount
             configuration.captureMicrophone = true
 
             let writer = try AVAssetWriter(outputURL: outputURL, fileType: .mp4)
+            writer.shouldOptimizeForNetworkUse = true
 
             let videoSettings: [String: Any] = [
-                AVVideoCodecKey: AVVideoCodecType.h264,
-                AVVideoWidthKey: 1280,
-                AVVideoHeightKey: 720,
+                AVVideoCodecKey: AVVideoCodecType.hevc,
+                AVVideoWidthKey: RecordingCompressionProfile.width,
+                AVVideoHeightKey: RecordingCompressionProfile.height,
+                AVVideoEncoderSpecificationKey: [
+                    kVTVideoEncoderSpecification_EnableHardwareAcceleratedVideoEncoder as String: true
+                ],
                 AVVideoCompressionPropertiesKey: [
-                    AVVideoAverageBitRateKey: 3_000_000,
-                    AVVideoProfileLevelKey: AVVideoProfileLevelH264HighAutoLevel,
-                    AVVideoExpectedSourceFrameRateKey: 30,
-                    AVVideoMaxKeyFrameIntervalKey: 30
+                    kVTCompressionPropertyKey_AverageBitRate as String: RecordingCompressionProfile.videoBitRate,
+                    kVTCompressionPropertyKey_ProfileLevel as String: kVTProfileLevel_HEVC_Main_AutoLevel,
+                    kVTCompressionPropertyKey_ExpectedFrameRate as String: RecordingCompressionProfile.framesPerSecond,
+                    kVTCompressionPropertyKey_MaxKeyFrameInterval as String:
+                        RecordingCompressionProfile.framesPerSecond * RecordingCompressionProfile.keyFrameIntervalSeconds,
+                    kVTCompressionPropertyKey_MaxKeyFrameIntervalDuration as String:
+                        RecordingCompressionProfile.keyFrameIntervalSeconds,
+                    kVTCompressionPropertyKey_AllowFrameReordering as String: true,
+                    kVTCompressionPropertyKey_RealTime as String: true
                 ]
             ]
+            guard writer.canApply(outputSettings: videoSettings, forMediaType: .video) else {
+                throw RecorderError.unsupportedCompression
+            }
             let videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
             videoInput.expectsMediaDataInRealTime = true
 
-            let audioSettings: [String: Any] = [
+            let systemAudioSettings: [String: Any] = [
                 AVFormatIDKey: kAudioFormatMPEG4AAC,
-                AVSampleRateKey: 48000,
-                AVNumberOfChannelsKey: 2,
-                AVEncoderBitRateKey: 128_000
+                AVSampleRateKey: RecordingCompressionProfile.audioSampleRate,
+                AVNumberOfChannelsKey: RecordingCompressionProfile.audioChannelCount,
+                AVEncoderBitRateKey: RecordingCompressionProfile.systemAudioBitRate
             ]
-            let audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
+            let audioInput = AVAssetWriterInput(mediaType: .audio, outputSettings: systemAudioSettings)
             audioInput.expectsMediaDataInRealTime = true
 
-            let micInput = AVAssetWriterInput(mediaType: .audio, outputSettings: audioSettings)
+            let microphoneAudioSettings: [String: Any] = [
+                AVFormatIDKey: kAudioFormatMPEG4AAC,
+                AVSampleRateKey: RecordingCompressionProfile.audioSampleRate,
+                AVNumberOfChannelsKey: RecordingCompressionProfile.audioChannelCount,
+                AVEncoderBitRateKey: RecordingCompressionProfile.microphoneAudioBitRate
+            ]
+            let micInput = AVAssetWriterInput(mediaType: .audio, outputSettings: microphoneAudioSettings)
             micInput.expectsMediaDataInRealTime = true
 
-            if writer.canAdd(videoInput) { writer.add(videoInput) }
-            if writer.canAdd(audioInput) { writer.add(audioInput) }
-            if writer.canAdd(micInput) { writer.add(micInput) }
+            guard writer.canAdd(videoInput), writer.canAdd(audioInput), writer.canAdd(micInput) else {
+                throw RecorderError.cannotConfigureMediaInputs
+            }
+            writer.add(videoInput)
+            writer.add(audioInput)
+            writer.add(micInput)
+
+            DiagnosticLog.write(
+                "Compression profile: \(RecordingCompressionProfile.codecName), " +
+                "\(RecordingCompressionProfile.width)x\(RecordingCompressionProfile.height), " +
+                "\(RecordingCompressionProfile.framesPerSecond) fps, " +
+                "\(RecordingCompressionProfile.totalBitRate / 1_000) kbps total, " +
+                "estimated \(Int(RecordingCompressionProfile.estimatedFileSizeMegabytes(seconds: 3_600).rounded())) MB/hour"
+            )
 
             self.assetWriter = writer
             self.videoWriterInput = videoInput
@@ -287,10 +320,16 @@ final class RecordingEngine: NSObject, SCStreamDelegate, SCStreamOutput, @unchec
 
     enum RecorderError: LocalizedError {
         case noDisplay
+        case unsupportedCompression
+        case cannotConfigureMediaInputs
 
         var errorDescription: String? {
             switch self {
             case .noDisplay: "No display is available to record."
+            case .unsupportedCompression:
+                "This Mac could not start the hardware-accelerated HEVC compressor."
+            case .cannotConfigureMediaInputs:
+                "The compressed video and audio tracks could not be configured."
             }
         }
     }

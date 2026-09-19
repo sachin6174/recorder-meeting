@@ -4,11 +4,15 @@ A native, consent-first menu-bar app for recording interview practice and interv
 
 ## What it records
 
-- Main display at a maximum canvas of 1280×720 and 30 frames per second
+- Main display at a maximum canvas of 1280×720 and 15 frames per second
 - System/meeting audio
 - Default microphone
-- Hardware-accelerated H.264 in an MP4 container for reliable, compact 720p output
+- Apple VideoToolbox hardware-accelerated HEVC/H.265 in an MP4 container
+- A strict 572 kbps total meeting profile (500 kbps video plus speech-optimized audio)
+- A projected size of about 22 MB for 5 minutes or 263 MB for 1 hour, rather than about 120 MB for 5 minutes
 - Black letterboxing when the display is not 16:9, which avoids stretching the picture
+
+The compression profile is optimized for interviews, calls, shared documents, and mostly static screen content. HEVC playback is supported by current Apple platforms and modern players; very old devices or software may require conversion to H.264, which produces a larger file at equivalent quality.
 
 Recordings are saved in `/Library/Application Support/screensessions`.
 

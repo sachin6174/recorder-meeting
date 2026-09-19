@@ -1,8 +1,51 @@
 import CoreGraphics
 import Foundation
 
+/// A size-first profile tuned for meeting and interview screen recordings.
+///
+/// The bit-rate budget is deliberately centralized so a future resolution or
+/// codec change cannot accidentally return the recorder to 100 MB/5-minute
+/// files without failing the size-budget tests.
+enum RecordingCompressionProfile {
+    static let codecName = "HEVC/H.265"
+    static let width = 1_280
+    static let height = 720
+    static let framesPerSecond = 15
+
+    // Screen content changes much less than camera video. HEVC can preserve
+    // readable 720p meeting content at this rate while remaining very small.
+    static let videoBitRate = 500_000
+
+    // System sound and microphone remain separate mono tracks. These rates are
+    // intended for speech; music fidelity is not the goal of this recorder.
+    static let systemAudioBitRate = 40_000
+    static let microphoneAudioBitRate = 32_000
+    static let audioSampleRate = 32_000
+    static let audioChannelCount = 1
+
+    static let keyFrameIntervalSeconds = 10
+    static let estimatedContainerOverhead = 1.02
+
+    static var totalBitRate: Int {
+        videoBitRate + systemAudioBitRate + microphoneAudioBitRate
+    }
+
+    static func estimatedFileSizeBytes(seconds: TimeInterval) -> Int64 {
+        guard seconds > 0 else { return 0 }
+        let mediaBytes = (Double(totalBitRate) * seconds) / 8
+        return Int64(ceil(mediaBytes * estimatedContainerOverhead))
+    }
+
+    static func estimatedFileSizeMegabytes(seconds: TimeInterval) -> Double {
+        Double(estimatedFileSizeBytes(seconds: seconds)) / 1_000_000
+    }
+}
+
 enum RecordingHelpers {
-    static let canvasSize = CGSize(width: 1280, height: 720)
+    static let canvasSize = CGSize(
+        width: RecordingCompressionProfile.width,
+        height: RecordingCompressionProfile.height
+    )
 
     static func aspectFit(source: CGSize, inside canvas: CGSize = canvasSize) -> CGRect {
         guard source.width > 0, source.height > 0, canvas.width > 0, canvas.height > 0 else {
